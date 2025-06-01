@@ -98,7 +98,7 @@ const MessageInput = ({ showImageButtonOnMobile }) => {
             <textarea
               value={text}
               onChange={(e) => setText(e.target.value)}
-              placeholder={isMutualFollow ? "type..." : "Follow each other to chat"}
+              placeholder={isMutualFollow ? "Message" : "Follow each other to chat"}
               rows="1"
               className="textarea textarea-bordered flex-1 resize-none w-full max-w-full overflow-x-hidden"
               disabled={!isMutualFollow}
