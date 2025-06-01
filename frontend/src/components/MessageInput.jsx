@@ -67,14 +67,14 @@ const MessageInput = ({ showImageButtonOnMobile }) => {
   };
 
   return (
-    <div className="p-4 w-full">
+    <div className="p-4 w-full max-w-full overflow-x-hidden">
       {!isMutualFollow ? (
-        <div className="flex items-center justify-center gap-2 text-warning bg-warning/10 p-3 rounded-lg">
+        <div className="flex items-center justify-center gap-2 text-warning bg-warning/10 p-3 rounded-lg w-full max-w-full overflow-x-hidden">
           <Users className="w-5 h-5" />
           <p>You need to follow each other to start messaging</p>
         </div>
       ) : (
-        <form onSubmit={handleSendMessage} className="flex items-end gap-2">
+        <form onSubmit={handleSendMessage} className="flex items-end gap-2 w-full max-w-full overflow-x-hidden">
           {/* Image preview */}
           {imagePreview && (
             <div className="relative">
@@ -93,15 +93,16 @@ const MessageInput = ({ showImageButtonOnMobile }) => {
             </div>
           )}
 
-          <div className="flex-1 flex items-end gap-2">
+          <div className="flex-1 flex items-end gap-2 w-full max-w-full overflow-x-hidden">
             {/* Message input */}
             <textarea
               value={text}
               onChange={(e) => setText(e.target.value)}
-              placeholder={isMutualFollow ? "Type a message" : "Follow each other to chat"}
+              placeholder={isMutualFollow ? "type..." : "Follow each other to chat"}
               rows="1"
-              className="textarea textarea-bordered flex-1 resize-none"
+              className="textarea textarea-bordered flex-1 resize-none w-full max-w-full overflow-x-hidden"
               disabled={!isMutualFollow}
+              style={{ minWidth: 0 }}
             />
 
             {/* Image upload button */}

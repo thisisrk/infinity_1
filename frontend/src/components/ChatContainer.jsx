@@ -63,7 +63,7 @@ const ChatContainer = () => {
         </div>
       )}
 
-      <div className="flex-1 overflow-y-auto p-4 space-y-4">
+      <div className="flex-1 overflow-y-auto overflow-x-hidden p-4 space-y-4">
         {uniqueMessages.map((message, i) => (
           <div
             key={`${message._id || "noid"}-${message.createdAt || "notime"}-${i}`}
@@ -87,16 +87,16 @@ const ChatContainer = () => {
                 {formatMessageTime(message.createdAt)}
               </time>
             </div>
-            <div className="chat-bubble flex flex-col">
+            <div className="chat-bubble flex flex-col break-words max-w-full">
               {message.image && (
                 <img
                   src={message.image}
                   alt="Attachment"
-                  className="sm:max-w-[200px] rounded-md mb-2 cursor-pointer hover:opacity-80 transition"
+                  className="sm:max-w-[200px] max-w-full rounded-md mb-2 cursor-pointer hover:opacity-80 transition"
                   onClick={() => setModalImage(message.image)}
                 />
               )}
-              {message.text && <p>{message.text}</p>}
+              {message.text && <p className="break-words max-w-full">{message.text}</p>}
             </div>
           </div>
         ))}

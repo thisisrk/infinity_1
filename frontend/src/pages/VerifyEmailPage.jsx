@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useAuthStore } from "../store/useAuthStore";
 import AuthImagePattern from "../components/AuthImagePattern";
-import { Loader2, Sticker } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import toast from "react-hot-toast";
 
 const VerifyEmailPage = () => {
@@ -68,26 +68,48 @@ const VerifyEmailPage = () => {
   };
 
   return (
-    <div className="h-screen grid lg:grid-cols-2">
-      {/* Left Side - Form */}
-      <div className="flex flex-col justify-center items-center p-6 sm:p-12">
-        <div className="w-full max-w-md space-y-8">
+    <div className="min-h-screen flex flex-col lg:flex-row items-center justify-center relative overflow-hidden bg-base-100">
+      {/* Animated Background Shapes */}
+      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-10 left-10 w-32 h-32 bg-purple-400 rounded-full opacity-30 animate-float-slow"></div>
+        <div className="absolute bottom-20 right-10 w-24 h-24 bg-pink-400 rounded-full opacity-20 animate-float-fast"></div>
+        <div className="absolute top-1/2 left-1/3 w-40 h-40 bg-blue-400 rounded-full opacity-20 animate-pulse-slow"></div>
+        <div className="absolute bottom-10 left-1/4 w-20 h-20 bg-indigo-300 rounded-full opacity-20 animate-float-medium"></div>
+        <div className="absolute top-24 right-1/4 w-16 h-16 bg-yellow-300 opacity-20 animate-rotate-slow rounded-sm"></div>
+        <div
+          className="absolute top-1/3 right-10 w-0 h-0 opacity-20"
+          style={{
+            borderLeft: '20px solid transparent',
+            borderRight: '20px solid transparent',
+            borderBottom: '35px solid #34d399',
+            animation: 'float-medium 6s ease-in-out infinite',
+          }}
+        ></div>
+        <div
+          className="absolute bottom-16 left-8 w-48 h-48 bg-rose-300 opacity-30 animate-blob-move"
+          style={{
+            clipPath:
+              'polygon(43% 0%, 66% 14%, 86% 39%, 74% 65%, 48% 89%, 25% 87%, 4% 66%, 7% 35%, 22% 14%)',
+          }}
+        ></div>
+        <div className="absolute top-1/4 left-1/2 w-40 h-24 bg-cyan-300 rounded-full opacity-20 animate-float-slow"></div>
+      </div>
+
+      {/* Main Form Container */}
+      <div className="z-10 flex-1 flex items-center justify-center p-6">
+        <div className="w-full lg:w-[70vw] max-w-3xl bg-base-100/90 dark:bg-base-200/90 rounded-3xl shadow-2xl p-10 space-y-10 border border-base-300 text-base-content transition-all duration-300 flex flex-col items-center justify-center">
           {/* Logo */}
-          <div className="text-center mb-8">
-            <div className="flex flex-col items-center gap-2 group">
-              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                <Sticker className="w-6 h-6 text-primary" />
-              </div>
-              <h1 className="text-2xl font-bold mt-2">Verify Your Email</h1>
-              <p className="text-base-content/60">
-                Enter the OTP sent to {email}
-              </p>
-            </div>
+          <div className="flex flex-col items-center gap-3 group mt-2">
+            <img src="/chat%20logo.png" alt="Infinity Logo" className="w-14 h-14 object-contain mb-2" />
+            <h1 className="text-3xl font-extrabold tracking-tight text-center">Verify Your Email</h1>
+            <p className="text-base-content/70 text-base text-center">
+              Enter the OTP sent to {email}
+            </p>
           </div>
 
           {/* Form */}
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div>
+          <form onSubmit={handleSubmit} className="space-y-7 w-full flex flex-col items-center justify-center">
+            <div className="w-full">
               <label htmlFor="otp" className="block text-sm font-medium text-base-content">
                 OTP Code
               </label>
@@ -106,7 +128,7 @@ const VerifyEmailPage = () => {
               </div>
             </div>
 
-            <div>
+            <div className="w-full">
               <button
                 type="submit"
                 disabled={isVerifying}
@@ -123,7 +145,7 @@ const VerifyEmailPage = () => {
               </button>
             </div>
 
-            <div className="text-center">
+            <div className="text-center w-full">
               <button
                 type="button"
                 onClick={handleResendOTP}
@@ -142,14 +164,6 @@ const VerifyEmailPage = () => {
             </div>
           </form>
         </div>
-      </div>
-
-      {/* Right Side - Image Pattern */}
-      <div className="block">
-        <AuthImagePattern 
-          title="Welcome to chatty"
-          subtitle="Connect with friends and family in real-time with our secure messaging platform"
-        />
       </div>
     </div>
   );

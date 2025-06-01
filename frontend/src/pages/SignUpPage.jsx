@@ -6,13 +6,10 @@ import {
   Loader2,
   Lock,
   Mail,
-  MessageSquare,
   User,
   Phone,
-  Sticker
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
-import AuthImagePattern from "../components/AuthImagePattern";
 import toast from "react-hot-toast";
 
 const SignUpPage = () => {
@@ -35,7 +32,6 @@ const SignUpPage = () => {
     if (!/^\d{10}$/.test(formData.number)) return toast.error("Phone number must be exactly 10 digits");
     if (!formData.password) return toast.error("Password is required");
     if (formData.password.length < 6) return toast.error("Password must be at least 6 characters");
-
     return true;
   };
 
@@ -47,35 +43,62 @@ const SignUpPage = () => {
         await signup(formData);
         navigate("/verify-email");
       } catch (error) {
-        // Error is already handled by the signup function
         console.error("Signup failed:", error);
       }
     }
   };
 
   return (
-    <div className="min-h-screen grid lg:grid-cols-2">
-      {/* left side */}
-      <div className="flex flex-col justify-center items-center p-6 sm:p-12">
-        <div className="w-full max-w-md space-y-8">
+    <div className="min-h-screen flex flex-col lg:flex-row bg-base-100 items-center justify-center relative overflow-hidden">
+      {/* Animated Background Shapes */}
+      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+        {/* Floating Circles */}
+        <div className="absolute top-10 left-10 w-32 h-32 bg-purple-400 rounded-full opacity-30 animate-float-slow"></div>
+        <div className="absolute bottom-20 right-10 w-24 h-24 bg-pink-400 rounded-full opacity-20 animate-float-fast"></div>
+        <div className="absolute top-1/2 left-1/3 w-40 h-40 bg-blue-400 rounded-full opacity-20 animate-pulse"></div>
+        <div className="absolute bottom-10 left-1/4 w-20 h-20 bg-indigo-300 rounded-full opacity-20 animate-float-medium"></div>
+
+        {/* Rotating Square */}
+        <div className="absolute top-24 right-1/4 w-16 h-16 bg-yellow-300 opacity-20 animate-rotate-slow rounded-sm"></div>
+
+        {/* Triangle */}
+        <div
+          className="absolute top-1/3 right-10 w-0 h-0 opacity-20"
+          style={{
+            borderLeft: '20px solid transparent',
+            borderRight: '20px solid transparent',
+            borderBottom: '35px solid #34d399',
+            animation: 'float-medium 6s ease-in-out infinite',
+          }}
+        ></div>
+
+        {/* Blob */}
+        <div
+          className="absolute bottom-16 left-8 w-48 h-48 bg-rose-300 opacity-30 animate-blob-move"
+          style={{
+            clipPath:
+              'polygon(43% 0%, 66% 14%, 86% 39%, 74% 65%, 48% 89%, 25% 87%, 4% 66%, 7% 35%, 22% 14%)',
+          }}
+        ></div>
+
+        {/* Ellipse */}
+        <div className="absolute top-1/4 left-1/2 w-40 h-24 bg-cyan-300 rounded-full opacity-20 animate-float-slow"></div>
+      </div>
+
+      {/* Main Form Container */}
+      <div className="z-10 flex-1 flex items-center justify-center p-6">
+        <div className="w-full lg:w-[70vw] max-w-3xl bg-base-100/90 dark:bg-base-200/90 rounded-3xl shadow-2xl p-10 space-y-10 border border-base-300 text-base-content transition-all duration-300 flex flex-col items-center justify-center">
           {/* LOGO */}
-          <div className="text-center mb-8">
-            <div className="flex flex-col items-center gap-2 group">
-              <div className="size-12 rounded-xl bg-primary/10 flex items-center justify-center 
-              group-hover:bg-primary/20 transition-colors">
-                <Sticker className="size-6 text-primary" />
-              </div>
-              <h1 className="text-2xl font-bold mt-2">Create Account</h1>
-              <p className="text-base-content/60">Get started with your free account</p>
-            </div>
+          <div className="flex flex-col items-center gap-3 group mt-2">
+            <img src="/chat%20logo.png" alt="Infinity Logo" className="w-14 h-14 object-contain mb-2" />
+            <h1 className="text-3xl font-extrabold tracking-tight text-center">Welcome to Infinity</h1>
+            <p className="text-base-content/70 text-base text-center">Create your free account and start connecting instantly</p>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-7 w-full flex flex-col items-center justify-center">
             {/* Full Name */}
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text font-medium">Full Name</span>
-              </label>
+            <div className="form-control w-full">
+              <label className="label"><span className="label-text font-medium">Full Name</span></label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <User className="size-5 text-base-content/40" />
@@ -91,10 +114,8 @@ const SignUpPage = () => {
             </div>
 
             {/* Email */}
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text font-medium">Email</span>
-              </label>
+            <div className="form-control w-full">
+              <label className="label"><span className="label-text font-medium">Email</span></label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <Mail className="size-5 text-base-content/40" />
@@ -110,10 +131,8 @@ const SignUpPage = () => {
             </div>
 
             {/* Phone Number */}
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text font-medium">Phone Number</span>
-              </label>
+            <div className="form-control w-full">
+              <label className="label"><span className="label-text font-medium">Phone Number</span></label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <Phone className="size-5 text-base-content/40" />
@@ -128,7 +147,7 @@ const SignUpPage = () => {
                   onChange={(e) =>
                     setFormData({
                       ...formData,
-                      number: e.target.value.replace(/\D/g, ""), // ensures only digits
+                      number: e.target.value.replace(/\D/g, ""),
                     })
                   }
                 />
@@ -136,10 +155,8 @@ const SignUpPage = () => {
             </div>
 
             {/* Password */}
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text font-medium">Password</span>
-              </label>
+            <div className="form-control w-full">
+              <label className="label"><span className="label-text font-medium">Password</span></label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <Lock className="size-5 text-base-content/40" />
@@ -179,22 +196,16 @@ const SignUpPage = () => {
           </form>
 
           {/* Redirect to login */}
-          <div className="text-center">
+          <div className="text-center pt-2">
             <p className="text-base-content/60">
               Already have an account?{" "}
-              <Link to="/login" className="link link-primary">
+              <Link to="/login" className="link link-primary font-semibold">
                 Sign in
               </Link>
             </p>
           </div>
         </div>
       </div>
-
-      {/* right side */}
-      <AuthImagePattern
-        title="Join our community"
-        subtitle="Connect with friends, share moments, and stay in touch with your loved ones."
-      />
     </div>
   );
 };

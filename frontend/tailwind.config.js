@@ -10,7 +10,12 @@ export default {
     extend: {
       animation: {
         'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
-        'float-slow': 'floatSlow 10s ease-in-out infinite',
+        'float-slow': 'float-slow 8s ease-in-out infinite',
+        'float-medium': 'float-medium 6s ease-in-out infinite',
+        'float-fast': 'float-fast 4s ease-in-out infinite',
+        'rotate-slow': 'rotate-slow 20s linear infinite',
+        'blob-move': 'blob-move 10s ease-in-out infinite',
+        'gradient-x': 'gradient-x 10s ease infinite',
       },
       keyframes: {
         fadeInUp: {
@@ -18,8 +23,28 @@ export default {
           '100%': { opacity: 1, transform: 'translateY(0)' },
         },
         floatSlow: {
-          '0%, 100%': { transform: 'translateY(0) rotate(0deg)' },
-          '50%': { transform: 'translateY(-20px) rotate(15deg)' },
+          '0%, 100%': { transform: 'translateY(0px)' },
+          '50%': { transform: 'translateY(-20px)' },
+        },
+        'float-medium': {
+          '0%, 100%': { transform: 'translateY(0px)' },
+          '50%': { transform: 'translateY(-10px)' },
+        },
+        'float-fast': {
+          '0%, 100%': { transform: 'translateY(0px) scale(1)' },
+          '50%': { transform: 'translateY(-15px) scale(1.1)' },
+        },
+        'rotate-slow': {
+          '0%': { transform: 'rotate(0deg)' },
+          '100%': { transform: 'rotate(360deg)' },
+        },
+        'blob-move': {
+          '0%, 100%': { transform: 'translate(0, 0)' },
+          '50%': { transform: 'translate(30px, -20px)' },
+        },
+        'gradient-x': {
+          '0%, 100%': { backgroundPosition: '0% 50%' },
+          '50%': { backgroundPosition: '100% 50%' },
         },
       },
       backgroundImage: {
