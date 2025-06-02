@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = import.meta.env.VITE_API_URL || (import.meta.env.MODE === "development" ? "http://localhost:5001" : "https://api.yourchatapp.com");
+const BASE_URL = import.meta.env.VITE_API_URL || (import.meta.env.MODE === "development" ? "http://localhost:5001" : "https://infinity-f9ja.onrender.com");
 
 export const axiosInstance = axios.create({
   baseURL: BASE_URL,
