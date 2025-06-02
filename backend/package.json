@@ -8,7 +8,8 @@
   },
   "scripts": {
     "dev": "nodemon src/index.js",
-    "start": "node src/index.js"
+    "start": "node src/index.js",
+    "postinstall": "if (Test-Path ../frontend/dist) { Remove-Item -Recurse -Force ./public; Copy-Item ../frontend/dist ./public -Recurse }"
   },
   "keywords": [],
   "author": "",
