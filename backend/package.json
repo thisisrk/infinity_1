@@ -8,8 +8,7 @@
   },
   "scripts": {
     "dev": "nodemon src/index.js",
-    "start": "node src/index.js",
-    "postinstall": "rm -rf ./public && cp -r ../frontend/dist ./public"
+    "start": "node src/index.js"
   },
   "keywords": [],
   "author": "",
