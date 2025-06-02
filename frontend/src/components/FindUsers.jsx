@@ -80,7 +80,7 @@ const FindUsers = () => {
               <div className="flex items-center justify-center p-4">
                 <span className="loading loading-spinner"></span>
               </div>
-            ) : filteredUsers.length > 0 ? (
+            ) : Array.isArray(filteredUsers) && filteredUsers.length > 0 ? (
               <div className="p-2 space-y-2">
                 {filteredUsers.map((user) => (
                   <div

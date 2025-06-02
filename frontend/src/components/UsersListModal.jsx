@@ -1,4 +1,4 @@
-   import { X, UserMinus } from "lucide-react";
+import { X, UserMinus } from "lucide-react";
 import { useAuthStore } from "../store/useAuthStore";
 import toast from "react-hot-toast";
 
@@ -31,9 +31,9 @@ const UsersListModal = ({ isOpen, onClose, users, title, isLoading = false, show
             <div className="flex items-center justify-center py-8">
               <span className="loading loading-spinner loading-md"></span>
             </div>
-          ) : users.length === 0 ? (
+          ) : Array.isArray(users) && users.length === 0 ? (
             <p className="text-center text-base-content/60 py-8">No users to display</p>
-          ) : (
+          ) : Array.isArray(users) ? (
             <div className="space-y-4">
               {users.map((user) => (
                 <div key={user._id} className="flex items-center justify-between p-2 hover:bg-base-300 rounded-lg">
@@ -60,7 +60,7 @@ const UsersListModal = ({ isOpen, onClose, users, title, isLoading = false, show
                 </div>
               ))}
             </div>
-          )}
+          ) : null}
         </div>
       </div>
     </div>
