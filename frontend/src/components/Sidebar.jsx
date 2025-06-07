@@ -13,9 +13,10 @@ const Sidebar = () => {
     getChatUsers();
   }, [getChatUsers]);
 
+  const safeUsers = Array.isArray(users) ? users : [];
   const filteredUsers = showOnlineOnly
-    ? users.filter((user) => onlineUsers?.includes(user._id))
-    : users;
+    ? safeUsers.filter((user) => onlineUsers?.includes(user._id))
+    : safeUsers;
 
   if (isUsersLoading) return <SidebarSkeleton />;
 
@@ -65,15 +66,15 @@ const Sidebar = () => {
               Find Users to Follow
             </a>
           </div>
-        ) : filteredUsers.map((user) => (
+        ) : Array.isArray(filteredUsers) ? filteredUsers.map((user) => (
           <button
             key={user._id}
             onClick={() => setSelectedUser(user)}
-            className={`
-              w-full p-3 flex items-center gap-3
+            className={
+              `w-full p-3 flex items-center gap-3
               hover:bg-base-300 transition-colors
-              ${selectedUser?._id === user._id ? "bg-base-300 ring-1 ring-base-300" : ""}
-            `}
+              ${selectedUser?._id === user._id ? "bg-base-300 ring-1 ring-base-300" : ""}`
+            }
           >
             <div className="relative mx-auto lg:mx-0">
               <img
@@ -96,7 +97,7 @@ const Sidebar = () => {
               </div>
             </div>
           </button>
-        ))}
+        )) : null}
       </div>
     </aside>
   );

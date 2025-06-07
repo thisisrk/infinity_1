@@ -106,7 +106,9 @@ const FindUsersPage = () => {
     }
   };
 
-  const filteredUsers = (users || []).filter(user => {
+  // Ensure users is always an array before filtering
+  const safeUsers = Array.isArray(users) ? users : [];
+  const filteredUsers = safeUsers.filter(user => {
     // Basic validation
     if (!user?.fullName || !user?.username) return false;
 
@@ -121,8 +123,11 @@ const FindUsersPage = () => {
   });
 
   const isRequestPending = (userId) => {
-    return requests.some((req) => req._id === userId);
+    return safeRequests.some((req) => req._id === userId);
   };
+
+  // Ensure requests is always an array before mapping
+  const safeRequests = Array.isArray(requests) ? requests : [];
 
 return (
   <div className="min-h-screen pt-20 bg-base-100">
@@ -141,10 +146,10 @@ return (
       </div>
 
       {/* Follow Requests */}
-      {requests.length > 0 && (
+      {safeRequests.length > 0 && (
         <div className="bg-base-200 p-4 rounded-xl shadow space-y-4">
           <h2 className="text-lg font-semibold">Follow Requests</h2>
-          {requests.map((request) => (
+          {safeRequests.map((request) => (
             <div key={request._id} className="flex justify-between items-center">
               <div className="font-medium text-base-content">@{request.username}</div>
               <div className="flex gap-2">
