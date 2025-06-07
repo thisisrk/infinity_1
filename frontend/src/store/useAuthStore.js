@@ -3,8 +3,6 @@ import { axiosInstance } from "../lib/axios.js";
 import toast from "react-hot-toast";
 import { io } from "socket.io-client";
 
-const BASE_URL = import.meta.env.VITE_API_URL || (import.meta.env.MODE === "development" ? "http://localhost:5001" : "/");
-
 export const useAuthStore = create((set, get) => ({
   authUser: null,
   isSigningUp: false,
@@ -16,7 +14,7 @@ export const useAuthStore = create((set, get) => ({
 
   checkAuth: async () => {
     try {
-      const res = await axiosInstance.get(`${BASE_URL}/api/auth/check`, { withCredentials: true });
+      const res = await axiosInstance.get("/auth/check", { withCredentials: true });
       set({ authUser: res.data });
       get().connectSocket();
     } catch (error) {
@@ -33,7 +31,7 @@ export const useAuthStore = create((set, get) => ({
   signup: async (data) => {
     set({ isSigningUp: true });
     try {
-      const res = await axiosInstance.post(`${BASE_URL}/api/auth/signup`, data, { withCredentials: true });
+      const res = await axiosInstance.post("/auth/signup", data, { withCredentials: true });
       localStorage.setItem("verificationEmail", data.email);
       toast.success("Account created successfully. Please verify your email.");
       return res.data;
@@ -51,7 +49,7 @@ export const useAuthStore = create((set, get) => ({
     }
 
     try {
-      const res = await axiosInstance.post(`${BASE_URL}/api/auth/verify-otp`, { 
+      const res = await axiosInstance.post("/auth/verify-otp", { 
         email: email.trim(),
         otp: otp.trim()
       }, { withCredentials: true });
@@ -71,7 +69,7 @@ export const useAuthStore = create((set, get) => ({
     }
 
     try {
-      const res = await axiosInstance.post(`${BASE_URL}/api/auth/resend-otp`, { email: email.trim() }, { withCredentials: true });
+      const res = await axiosInstance.post("/auth/resend-otp", { email: email.trim() }, { withCredentials: true });
       return res.data;
     } catch (error) {
       console.error("Resend OTP error:", error.response?.data);
@@ -82,7 +80,7 @@ export const useAuthStore = create((set, get) => ({
   login: async (data) => {
     set({ isLoggingIn: true });
     try {
-      const res = await axiosInstance.post(`${BASE_URL}/api/auth/login`, data, { withCredentials: true });
+      const res = await axiosInstance.post("/auth/login", data, { withCredentials: true });
       set({ authUser: res.data });
       toast.success("Logged in successfully");
       get().connectSocket();
@@ -97,7 +95,7 @@ export const useAuthStore = create((set, get) => ({
 
   logout: async () => {
     try {
-      await axiosInstance.post(`${BASE_URL}/api/auth/logout`, {}, { withCredentials: true });
+      await axiosInstance.post("/auth/logout", {}, { withCredentials: true });
       set({ authUser: null });
       toast.success("Logged out successfully");
       get().disconnectSocket();
@@ -109,7 +107,7 @@ export const useAuthStore = create((set, get) => ({
   updateProfile: async (data) => {
     set({ isUpdatingProfile: true });
     try {
-      const res = await axiosInstance.put(`${BASE_URL}/api/auth/update`, data, { withCredentials: true });
+      const res = await axiosInstance.put("/auth/update", data, { withCredentials: true });
       set({ authUser: res.data });
       toast.success("Profile updated successfully");
       return res.data;
@@ -179,7 +177,7 @@ export const useAuthStore = create((set, get) => ({
   connectSocket: () => {
     if (get().socket) return;
 
-    const socket = io(BASE_URL, {
+    const socket = io(import.meta.env.VITE_API_URL, {
       query: { userId: get().authUser?._id },
       withCredentials: true,
     });
