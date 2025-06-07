@@ -75,7 +75,7 @@ export const useChatStore = create((set, get) => ({
       });
     } catch (error) {
       toast.error(error.response?.data?.message || error.message);
-      // Removed unused console.log for production cleanup
+      console.log("Error sending message: ", error.message);
     }
   },
 

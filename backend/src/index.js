@@ -65,8 +65,12 @@ app.use((err, req, res, next) => {
 });
 
 if(process.env.NODE_ENV === "production") {
-  const frontendDistPath = path.join(__dirname, '../public');
+  const frontendDistPath = path.join(__dirname, '../../frontend/dist');
+  
+  // Serve static files from the React frontend app
   app.use(express.static(frontendDistPath));
+
+  // The "catchall" handler: for any request that doesn't match one above, send back index.html
   app.get("*", (req, res) => {
     res.sendFile(path.join(frontendDistPath, 'index.html'));
   });

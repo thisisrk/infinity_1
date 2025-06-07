@@ -141,7 +141,7 @@ return (
       </div>
 
       {/* Follow Requests */}
-      {Array.isArray(requests) && requests.length > 0 && (
+      {requests.length > 0 && (
         <div className="bg-base-200 p-4 rounded-xl shadow space-y-4">
           <h2 className="text-lg font-semibold">Follow Requests</h2>
           {requests.map((request) => (
@@ -189,7 +189,7 @@ return (
           </div>
         ) : loading ? (
           <FindUsersSkeleton />
-        ) : Array.isArray(filteredUsers) && filteredUsers.length > 0 ? (
+        ) : filteredUsers.length > 0 ? (
           <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-4">
             {filteredUsers.map((user) => (
               <div key={user._id} className="flex items-center justify-between p-4 bg-base-300 rounded-xl shadow">

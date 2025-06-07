@@ -20,6 +20,7 @@ export const useAuthStore = create((set, get) => ({
       set({ authUser: res.data });
       get().connectSocket();
     } catch (error) {
+      console.log("Error in checkAuth:", error);
       set({ authUser: null });
       if (get().socket) {
         get().disconnectSocket();
@@ -184,6 +185,7 @@ export const useAuthStore = create((set, get) => ({
     });
 
     socket.on("connect", () => {
+      console.log("Socket connected:", socket.id);
       if (get().authUser?._id) {
         socket.emit("user_connected", get().authUser._id);
       }
@@ -207,6 +209,7 @@ export const useAuthStore = create((set, get) => ({
         try {
           const res = await axiosInstance.get("/users/requests");
           // You might want to update some state here with the new requests
+          console.log("Updated requests:", res.data);
         } catch (error) {
           console.error("Failed to fetch requests:", error);
         }
@@ -216,7 +219,7 @@ export const useAuthStore = create((set, get) => ({
     });
 
     socket.on("disconnect", () => {
-      // Socket disconnected log removed for production cleanup
+      console.log("Socket disconnected");
     });
 
     set({ socket });
